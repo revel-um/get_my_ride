@@ -20,7 +20,6 @@ class VerifyNumber extends StatefulWidget {
 }
 
 class _VerifyNumberState extends State<VerifyNumber> {
-  var progressBar = CircularProgressIndicator();
   bool requesting = false;
 
   @override
@@ -176,7 +175,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
             ],
           ),
           Center(
-            child: requesting ? progressBar : null,
+            child: requesting ? SpinKit.spinner : null,
           ),
         ],
       ),

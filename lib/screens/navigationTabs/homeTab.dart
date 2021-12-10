@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quick_bite/globalsAndConstants/allConstants.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _HomeTabState extends State<HomeTab> {
         backgroundColor: Colors.white,
         leading: Icon(
           Icons.location_on,
-          color: Colors.black,
+          color: MyColors.primaryColor,
         ),
         title: Text(
           '',

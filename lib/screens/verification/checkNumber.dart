@@ -21,7 +21,6 @@ class _CheckNumberState extends State<CheckNumber>
   bool animatedOnce = false;
   Color focusColor = Colors.blueGrey;
   final fieldController = TextEditingController();
-  var progressbar = CircularProgressIndicator();
   bool requesting = false;
 
   @override
@@ -221,7 +220,7 @@ class _CheckNumberState extends State<CheckNumber>
             ),
           ),
           Center(
-            child: requesting ? progressbar : null,
+            child: requesting ? SpinKit.spinner : null,
           )
         ],
       ),

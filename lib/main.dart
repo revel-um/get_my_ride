@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:quick_bite/globalsAndConstants/allConstants.dart';
 import 'package:quick_bite/screens/homeScreen.dart';
 import 'package:quick_bite/screens/verification/checkNumber.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,9 +28,10 @@ class MyApp extends StatelessWidget {
       title: 'Drive',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.purple,
         scaffoldBackgroundColor: Colors.white,
-        accentColor: Colors.white,
+        colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: MaterialColor(0xFFBA68C8, MyColors.colorMap))
+            .copyWith(secondary: Colors.white),
       ),
       home: SplashScreen(),
     );
