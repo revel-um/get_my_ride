@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:quick_bite/globalsAndConstants/allConstants.dart';
 import 'package:quick_bite/screens/homeScreen.dart';
@@ -8,15 +7,6 @@ import 'package:quick_bite/screens/verification/checkNumber.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarDividerColor: Colors.white,
-      systemNavigationBarIconBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.dark,
-    ),
-  );
   runApp(MyApp());
 }
 
