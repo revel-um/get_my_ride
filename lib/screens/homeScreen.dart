@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:quick_bite/screens/navigationTabs/searchTab.dart';
 
-import 'navigationTabs/favoriteTab.dart';
 import 'navigationTabs/homeTab.dart';
+import 'navigationTabs/mapTab.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   int navigationIndex = 0;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
             activeIcon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: 'Favorite',
-            icon: Icon(Icons.favorite_border),
-            activeIcon: Icon(
-              Icons.favorite,
-            ),
+            label: 'Favorites',
+            icon: Icon(Icons.favorite_outline),
+            activeIcon: Icon(Icons.favorite),
           ),
           BottomNavigationBarItem(
-            label: 'Search',
-            icon: Icon(Icons.search_outlined),
-            activeIcon: Icon(Icons.search),
+            label: 'Map',
+            icon: Icon(Icons.map_outlined),
+            activeIcon: Icon(Icons.map),
           ),
         ],
         elevation: 10,
@@ -52,16 +49,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void changeTab(int index) {
+    setState(() {
+      navigationIndex = index;
+    });
+  }
+
+  void changeLoadingStatus(bool status) {
+    setState(() {
+      isLoading = status;
+    });
+  }
+
   Widget getFragment({index}) {
     switch (index) {
       case 0:
-        return HomeTab();
+        return HomeTab(
+          changeTab: changeTab,
+          changeLoadingStatus: changeLoadingStatus,
+        );
       case 1:
-        return FavoriteTab();
-      case 2:
         return SearchTab();
+      case 2:
+        return MapTab();
       default:
-        return HomeTab();
+        return HomeTab(
+          changeTab: changeTab,
+          changeLoadingStatus: changeLoadingStatus,
+        );
     }
   }
 }

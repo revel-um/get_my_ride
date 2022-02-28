@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MyColors {
-  static const primaryColor = Color(0xFFBA68C8);
+  static const primaryColor = Color(0xFF10AB69);
   static const Map<int, Color> colorMap = {
     50: Color.fromRGBO(136, 14, 79, .1),
     100: Color.fromRGBO(136, 14, 79, .2),
@@ -18,5 +18,11 @@ class MyColors {
 }
 
 class SpinKit {
-  static const spinner = SpinKitSpinningLines(color: Color(0xFFBA68C8));
+  static const spinner = SpinKitSpinningLines(color: Color(0xFF008080));
+}
+
+class AllData {
+  static var repo;
+  static var addressData;
+  static double lat = 0.0, lon = 0.0;
 }
