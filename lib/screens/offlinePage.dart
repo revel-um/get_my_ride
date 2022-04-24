@@ -1,7 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quick_bite/apis/AllApis.dart';
+import 'package:quick_bite/globalsAndConstants/allConstants.dart';
 import 'package:quick_bite/globalsAndConstants/networkChecker.dart';
+
+import 'homeScreen.dart';
 
 class OfflinePage extends StatefulWidget {
   final comingFrom;
@@ -18,61 +21,40 @@ class _OfflinePageState extends State<OfflinePage> {
 
   @override
   Widget build(BuildContext context) {
-    final query = MediaQuery.of(context);
-    final height = query.size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Column(
-              children: [
-                SizedBox(height: height / 2 - 200),
-                SvgPicture.asset(
-                  'assets/svgs/error.svg',
-                  height: 200,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  serverIssue
-                      ? 'Server down please try after sometime'
-                      : 'No Internet connection ❌',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => widget.comingFrom),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Retry',
-                        style: TextStyle(
-                          color: Color(0xFFBA68C8),
-                          fontSize: 16,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Icon(
-                        Icons.refresh,
-                        color: Color(0xFFBA68C8),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+          SvgPicture.asset(
+            'assets/svgs/error.svg',
+            height: 200,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            serverIssue
+                ? 'Server down please try after sometime'
+                : 'No Internet connection ❌',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 20,
+            width: double.infinity,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => widget.comingFrom),
+              );
+            },
+            child: Icon(
+              Icons.refresh_sharp,
+              color: Colors.white,
             ),
           ),
         ],
@@ -83,6 +65,8 @@ class _OfflinePageState extends State<OfflinePage> {
   @override
   void initState() {
     super.initState();
+    if (AllApis.staticPage.runtimeType == HomeScreen)
+      AllData.addressData = null;
     serverIssue = widget.serverIssue;
     checkNet();
   }

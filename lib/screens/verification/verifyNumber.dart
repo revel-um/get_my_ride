@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -51,11 +50,12 @@ class _VerifyNumberState extends State<VerifyNumber> {
             children: [
               Hero(
                 tag: 'verify',
-                child: Icon(Icons.verified, color: MyColors.primaryColor, size: 20),
+                child: Icon(Icons.verified,
+                    color: MyColors.primaryColor, size: 20),
               ),
               SvgPicture.asset(
                 'assets/svgs/otp.svg',
-                height: MediaQuery.of(context).size.height/2,
+                height: MediaQuery.of(context).size.height / 2,
               ),
               Text(
                 'Verification Code',

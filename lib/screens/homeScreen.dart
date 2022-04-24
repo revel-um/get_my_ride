@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:quick_bite/screens/navigationTabs/searchTab.dart';
+import 'package:quick_bite/apis/AllApis.dart';
 
+import 'navigationTabs/cartTab.dart';
+import 'navigationTabs/ordersTab.dart';
 import 'navigationTabs/homeTab.dart';
-import 'navigationTabs/mapTab.dart';
 
 class HomeScreen extends StatefulWidget {
+  final navigationIndex;
+
+  const HomeScreen({this.navigationIndex = 0});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -17,7 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.black,
         backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: TextStyle(fontSize: 14),
         onTap: (index) {
           setState(
             () {
@@ -29,24 +37,41 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(
             label: 'Home',
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home_outlined,
+              color: Colors.black,
+            ),
+            activeIcon: Icon(Icons.home, color: Colors.black),
           ),
           BottomNavigationBarItem(
-            label: 'Favorites',
-            icon: Icon(Icons.favorite_outline),
-            activeIcon: Icon(Icons.favorite),
+            label: 'Cart',
+            icon: Icon(
+              Icons.shopping_bag_outlined,
+              color: Colors.black,
+            ),
+            activeIcon: Icon(Icons.shopping_bag, color: Colors.black),
           ),
           BottomNavigationBarItem(
-            label: 'Map',
-            icon: Icon(Icons.map_outlined),
-            activeIcon: Icon(Icons.map),
+            label: 'Orders',
+            icon: Icon(
+              Icons.analytics_outlined,
+              color: Colors.black,
+            ),
+            activeIcon: Icon(Icons.analytics, color: Colors.black),
           ),
         ],
         elevation: 10,
       ),
       body: getFragment(index: navigationIndex),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    navigationIndex = widget.navigationIndex;
+    AllApis.staticContext = context;
+    AllApis.staticPage = HomeScreen();
   }
 
   void changeTab(int index) {
@@ -69,9 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
           changeLoadingStatus: changeLoadingStatus,
         );
       case 1:
-        return SearchTab();
+        return CartTab();
       case 2:
-        return MapTab();
+        return OrdersTab();
       default:
         return HomeTab(
           changeTab: changeTab,
