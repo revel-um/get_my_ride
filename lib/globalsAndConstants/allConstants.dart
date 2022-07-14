@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:quick_bite/models/orderModel.dart';
 
@@ -23,7 +23,7 @@ class MyColors {
 }
 
 class SpinKit {
-  static const spinner = SpinKitSpinningLines(color: Color(0xFF000000));
+  static const spinner = SpinKitSpinningLines(color: Colors.blue);
 }
 
 class AllData {

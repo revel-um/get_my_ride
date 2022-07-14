@@ -1,15 +1,16 @@
 class UserModel {
-  late String userId;
-  late String profilePicture;
-  late String phoneNumber;
-  late String firstName;
-  late String middleName;
-  late String lastName;
-  late String age;
-  late String gender;
-  late String latitude;
-  late String longitude;
-  late String address;
+  String userId = '';
+  String profilePicture = '';
+  String phoneNumber = '';
+  String firstName = '';
+  String middleName = '';
+  String lastName = '';
+  String age = '';
+  String gender = '';
+  String latitude = '';
+  String longitude = '';
+  String address = '';
+
 
   void setUserModelFromJsonBody(user) {
     print(user);

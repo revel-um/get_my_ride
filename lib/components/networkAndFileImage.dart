@@ -10,13 +10,16 @@ class NetworkAndFileImage extends StatelessWidget {
   final borderRadius;
   final iconColor;
   final icon;
+  final width;
 
   const NetworkAndFileImage(
       {@required this.imageData,
       this.fit = BoxFit.cover,
       @required this.height,
       this.borderRadius,
-      this.iconColor = Colors.black, this.icon = const Icon(Icons.image_not_supported)});
+      this.iconColor = Colors.black,
+      this.icon = const Icon(Icons.image_not_supported),
+      this.width = double.infinity});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class NetworkAndFileImage extends StatelessWidget {
               ),
             );
           },
-          width: double.infinity,
+          width: double.parse(width.toString()),
           height: double.parse(height.toString()),
           loadingBuilder: (BuildContext context, Widget child,
               ImageChunkEvent? loadingProgress) {
@@ -44,6 +47,7 @@ class NetworkAndFileImage extends StatelessWidget {
               child: Container(
                 color: Colors.grey,
                 height: double.parse(height.toString()),
+                width: double.parse(width.toString()),
               ),
             );
           },
@@ -53,9 +57,10 @@ class NetworkAndFileImage extends StatelessWidget {
     } else {
       return imageData == null || imageData == ''
           ? Container(
-              width: double.infinity,
+              width: double.parse(width.toString()),
               height: double.parse(height.toString()),
-              decoration: BoxDecoration(borderRadius: borderRadius ?? BorderRadius.circular(0)),
+              decoration: BoxDecoration(
+                  borderRadius: borderRadius ?? BorderRadius.circular(0)),
               child: Icon(
                 icon,
                 color: iconColor,
@@ -65,7 +70,7 @@ class NetworkAndFileImage extends StatelessWidget {
               borderRadius: borderRadius ?? BorderRadius.circular(0),
               child: Image.file(
                 File(imageData),
-                width: double.infinity,
+                width: double.parse(width.toString()),
                 height: double.parse(height.toString()),
                 fit: fit,
               ),

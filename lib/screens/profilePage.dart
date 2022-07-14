@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:quick_bite/apis/AllApis.dart';
 import 'package:quick_bite/components/networkAndFileImage.dart';
 import 'package:quick_bite/components/profilePictureListTile.dart';
 import 'package:quick_bite/components/profilePictureTextField.dart';
@@ -20,12 +21,11 @@ class _ProfilePageState extends State<ProfilePage> {
       lastNameController = TextEditingController(),
       phoneNumberController = TextEditingController();
 
-  var image;
-
-
   @override
   void initState() {
     super.initState();
+    AllApis.staticPage = ProfilePage();
+    AllApis.staticContext = context;
     firstNameController.text = AllData.userModel.firstName;
     middleNameController.text = AllData.userModel.middleName;
     lastNameController.text = AllData.userModel.lastName;
@@ -39,31 +39,75 @@ class _ProfilePageState extends State<ProfilePage> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.white12,
+          actions: [
+            TextButton(
+              onPressed: () async {
+                final pref = await SharedPreferences.getInstance();
+                AllApis().updateUser(
+                  token: pref.getString('token'),
+                  firstName: firstNameController.text,
+                  middleName: middleNameController.text,
+                  lastName: lastNameController.text,
+                  address: AllData.userModel.address,
+                  latitude: AllData.userModel.latitude,
+                  longitude: AllData.userModel.longitude,
+                  phoneNumber: phoneNumberController.text,
+                  profilePicture:
+                      AllData.userModel.profilePicture.startsWith('http')
+                          ? null
+                          : AllData.userModel.profilePicture,
+                );
+              },
+              child: Text(
+                'SAVE',
+                style: TextStyle(color: Colors.blue),
+              ),
+            )
+          ],
+          elevation: 0.0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back, color: Colors.grey),
+          ),
+        ),
         body: ListView(
-          shrinkWrap: true,
           children: [
-            SizedBox(
-              height: 40,
-            ),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 FocusScope.of(context).unfocus();
+                final imageFile =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (imageFile != null) {
+                  setState(() {
+                    AllData.userModel.profilePicture = imageFile.path;
+                  });
+                }
               },
               child: CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Colors.grey[300],
-                  child: NetworkAndFileImage(
-                    imageData: AllData.userModel.profilePicture,
-                    height: 80,
-                    borderRadius: BorderRadius.circular(100),
-                    fit: BoxFit.cover,
-                    icon: Icons.person,
-                    iconColor: Colors.grey,
-                  )),
+                radius: 40,
+                backgroundColor: Colors.grey[300],
+                child: NetworkAndFileImage(
+                  imageData: AllData.userModel.profilePicture,
+                  height: 80,
+                  width: 80,
+                  borderRadius: BorderRadius.circular(100),
+                  fit: BoxFit.cover,
+                  icon: Icons.person,
+                  iconColor: Colors.grey,
+                ),
+              ),
             ),
             TextButton(
-              onPressed: () async{
-                await ImagePicker().pickImage(source: ImageSource.gallery);
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                setState(() {
+                  AllData.userModel.profilePicture = '';
+                });
               },
               child: Text(
                 'Remove Profile Picture',
@@ -120,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   MaterialPageRoute(
                     builder: (context) => CheckNumber(),
                   ),
-                      (route) => false,
+                  (route) => false,
                 );
               },
             ),

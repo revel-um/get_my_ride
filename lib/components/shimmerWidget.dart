@@ -5,9 +5,11 @@ class ShimmerWidget extends StatelessWidget {
   final isLoading;
   final child;
   final duration;
+
   const ShimmerWidget({
     @required this.isLoading,
-    @required this.child, this.duration = const Duration(seconds: 1),
+    @required this.child,
+    this.duration = const Duration(seconds: 1),
   });
 
   @override

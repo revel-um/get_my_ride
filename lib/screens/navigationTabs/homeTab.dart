@@ -20,6 +20,8 @@ import 'package:quick_bite/screens/searchVehicles.dart';
 import 'package:quick_bite/screens/showProductPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../components/networkAndFileImage.dart';
+
 class HomeTab extends StatefulWidget {
   final changeTab;
   final changeLoadingStatus;
@@ -41,16 +43,6 @@ class _HomeTabState extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
-    // profileImage = CircleAvatar(
-    //   backgroundImage: NetworkImage(imageLink),
-    //   onBackgroundImageError: (obj, error) {
-    //     print('obj = $obj');
-    //     print('error = $error');
-    //     if(mounted) setState(() {
-    //       profileImage = Icon(Icons.person);
-    //     });
-    //   },
-    // );
     final date = DateTime.now();
     startDate = date.day;
     startMonth = date.month;
@@ -61,7 +53,7 @@ class _HomeTabState extends State<HomeTab> {
     endYear = tom.year;
     if (AllData.addressData == null) {
       AllData.productModelList = [];
-      checkPermissions();
+      // checkPermissions();
     } else {
       address = '${AllData.addressData.name}';
       lat = AllData.lat;
@@ -78,7 +70,6 @@ class _HomeTabState extends State<HomeTab> {
   bool isLoading = false, networkError = false, locationError = false;
   double lat = 0.0, long = 0.0;
   String address = 'Looking for your location';
-  dynamic profileImage = Icon(Icons.person);
   static const IconData slider_horizontal_3 = IconData(0xf7dc,
       fontFamily: CupertinoIcons.iconFont,
       fontPackage: CupertinoIcons.iconFontPackage);
@@ -285,10 +276,16 @@ class _HomeTabState extends State<HomeTab> {
                   );
                 },
                 child: CircleAvatar(
+                  radius: 18,
                   backgroundColor: Colors.grey[300],
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.grey,
+                  child: NetworkAndFileImage(
+                    imageData: AllData.userModel.profilePicture,
+                    height: 40,
+                    width: 40,
+                    borderRadius: BorderRadius.circular(100),
+                    fit: BoxFit.cover,
+                    icon: Icons.person,
+                    iconColor: Colors.grey,
                   ),
                 ),
               ),
